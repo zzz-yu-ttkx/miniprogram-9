@@ -1,0 +1,10 @@
+name = "miniprogram-10"
+type = "pages"
+
+[build]
+command = "npm run build"
+directory = "dist"
+publish = "dist"
+
+[env]
+NODE_VERSION = "20"
