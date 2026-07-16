@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>电子名片</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f5f5; min-height: 100vh; overflow-x: hidden; }
+    .container { max-width: 600px; margin: 0 auto; background: #ffffff; min-height: 100vh; position: relative; }
+    
+    .top-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: #ffffff; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 100; }
+    .top-bar-left { width: 32px; height: 32px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; color: #666; font-size: 14px; }
+    .top-bar-title { font-size: 17px; font-weight: bold; color: #333; }
+    
+    .header-section { display: flex; padding: 0; background: #ffffff; border-bottom: 1px solid #f0f0f0; position: relative; overflow: hidden; min-height: 260px; }
+    .header-section::before { content: ''; position: absolute; top: 0; left: 0; width: 55%; bottom: 0; background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 600 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M200 380v-200h20v180h-20zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M230 380v-280h15v260h-15zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M260 380v-320h20v300h-20zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M300 380v-180h25v160h-25zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M340 380v-240h18v220h-18zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M375 380v-350h12v330h-12zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M400 380v-200h20v180h-20zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M150 380v-150h15v130h-15zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M120 380v-120h12v100h-12zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3Cpath d='M175 380v-220h18v200h-18zm0 0' stroke='%23f0f0f0' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E"); background-size: cover; background-position: center; opacity: 0.5; }
+    .header-info { flex: 1; padding: 20px 30px 20px 20px; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 1; clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 100%, 0 100%); background: #ffffff; }
+    .company-name { font-size: 11px; color: #666; margin-bottom: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .person-name { font-size: 22px; font-weight: bold; color: #333; margin-bottom: 2px; }
+    .person-title { font-size: 11px; color: #999; margin-bottom: 10px; }
+    
+    .contact-list { display: flex; flex-direction: column; gap: 5px; }
+    .contact-item { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .contact-icon { width: 13px; height: 13px; color: #d4af37; }
+    
+    .avatar-wrapper { width: 46%; flex-shrink: 0; position: relative; clip-path: polygon(0 0, 100% 0, 100% 100%, 50px 100%); }
+    .avatar-wrapper img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; display: block; transform: translateX(-8%); }
+    
+    .quick-actions { display: flex; padding: 0 20px 20px; gap: 0; border-bottom: 1px solid #f0f0f0; }
+    .quick-action-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 0; cursor: pointer; transition: background 0.3s; border-radius: 8px; }
+    .quick-action-item:hover { background: #f5f5f5; }
+    .quick-action-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(212,175,55,0.15); display: flex; align-items: center; justify-content: center; color: #d4af37; font-size: 18px; }
+    .quick-action-label { font-size: 12px; color: #666; }
+    
+    .section { padding: 20px; }
+    .section-title { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .section-title::before { content: ''; width: 4px; height: 16px; background: linear-gradient(135deg, #d4af37 0%, #f5d76e 100%); border-radius: 2px; }
+    .section-content { color: #666; line-height: 1.8; font-size: 14px; }
+    
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .gallery-item { aspect-ratio: 1; border-radius: 8px; overflow: hidden; cursor: pointer; position: relative; transition: transform 0.3s; }
+    .gallery-item:hover { transform: translateY(-2px); }
+    .gallery-item img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; }
+    
+    .cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .case-card { background: #fafafa; border-radius: 8px; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
+    .case-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .case-image { height: 120px; overflow: hidden; position: relative; }
+    .case-image img { width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; transition: transform 0.3s; }
+    .case-card:hover .case-image img { transform: scale(1.05); }
+    .case-category { position: absolute; top: 8px; right: 8px; padding: 3px 10px; background: linear-gradient(135deg, #d4af37 0%, #f5d76e 100%); color: #1a1a1a; font-size: 11px; font-weight: bold; border-radius: 12px; }
+    .case-content { padding: 12px; }
+    .case-title { font-size: 14px; font-weight: bold; color: #333; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .case-desc { font-size: 12px; color: #999; }
+    
+    .bottom-nav { display: flex; position: sticky; bottom: 0; background: #fff; border-top: 1px solid #f0f0f0; padding: 8px 0; z-index: 100; }
+    .bottom-nav-item { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 0; cursor: pointer; color: #999; transition: all 0.3s; }
+    .bottom-nav-item.active { color: #d4af37; }
+    .bottom-nav-icon { width: 24px; height: 24px; }
+    .bottom-nav-label { font-size: 11px; }
+    
+    .icon { width: 100%; height: 100%; fill: currentColor; display: inline-block; }
+    
+    .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+    .modal.active { display: flex; }
+    .modal-content { max-width: 90vw; max-height: 90vh; position: relative; }
+    .modal-content img { max-width: 100%; max-height: 80vh; border-radius: 12px; }
+    .modal-close { position: absolute; top: -40px; right: 0; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: #fff; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    
+    .case-detail-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+    .case-detail-modal.active { display: flex; }
+    .case-detail-content { background: #fff; border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; }
+    .case-detail-images { position: relative; height: 200px; overflow: hidden; border-radius: 16px 16px 0 0; }
+    .case-images-wrapper { display: flex; transition: transform 0.5s ease-out; height: 100%; }
+    .case-detail-images img { width: 100%; height: 100%; flex-shrink: 0; -o-object-fit: cover; object-fit: cover; }
+    .case-prev, .case-next { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border: none; border-radius: 50%; background: rgba(0,0,0,0.5); color: white; font-size: 20px; cursor: pointer; transition: background 0.3s; }
+    .case-prev { left: 10px; }
+    .case-next { right: 10px; }
+    .case-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; }
+    .case-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); cursor: pointer; transition: background 0.3s; }
+    .case-dot.active { background: white; }
+    .case-detail-body { padding: 24px; }
+    .case-detail-category { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(212,175,55,0.2); color: #d4af37; font-size: 13px; font-weight: 600; border-radius: 20px; margin-bottom: 12px; }
+    .case-detail-title { font-size: 22px; font-weight: bold; color: #333; margin-bottom: 16px; }
+    .case-detail-desc { color: #666; line-height: 1.8; }
+    
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  </style>
+</head>
+<body>
+  <div class="container" id="cardContainer"></div>
+
+  <div class="modal" id="galleryModal">
+    <div class="modal-content"><button class="modal-close" onclick="closeGallery()">×</button><img id="modalImage" src="" alt="" /></div>
+  </div>
+
+  <div class="case-detail-modal" id="caseModal">
+    <div class="case-detail-content">
+      <button class="modal-close" onclick="closeCase()" style="top: 16px; right: 16px;">×</button>
+      <div class="case-detail-images">
+        <div class="case-images-wrapper" id="caseImagesWrapper">
+          <img id="caseDetailImage1" src="" alt="" />
+          <img id="caseDetailImage2" src="" alt="" />
+          <img id="caseDetailImage3" src="" alt="" />
+        </div>
+        <button class="case-prev" onclick="prevCaseImage()">&#171;</button>
+        <button class="case-next" onclick="nextCaseImage()">&#187;</button>
+        <div class="case-dots">
+          <span class="case-dot active" onclick="goToCaseImage(0)"></span>
+          <span class="case-dot" onclick="goToCaseImage(1)"></span>
+          <span class="case-dot" onclick="goToCaseImage(2)"></span>
+        </div>
+      </div>
+      <div class="case-detail-body">
+        <span class="case-detail-category" id="caseDetailCategory"></span>
+        <h3 class="case-detail-title" id="caseDetailTitle"></h3>
+        <p class="case-detail-desc" id="caseDetailDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="data/cards.js"></script>
+  <script>
+    let currentCardData = null;
+
+    function getCardIdFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      const id = parseInt(params.get('id')) || 0;
+      if (id >= 0 && id < cardData.length) return id;
+      return 0;
+    }
+
+    function renderCard(id) {
+      currentCardData = cardData[id];
+      const d = currentCardData;
+      document.getElementById('cardContainer').innerHTML = `
+        <div class="top-bar"><div class="top-bar-left"><svg class="icon" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div><div class="top-bar-title">${d.name}</div></div>
+        <div class="header-section"><div class="header-info"><div class="company-name">${d.company}</div><div class="person-name">${d.name}</div><div class="person-title">${d.title}</div><div class="contact-list"><div class="contact-item"><svg class="contact-icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg><span>${d.phone}</span></div><div class="contact-item"><svg class="contact-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><span>${d.email}</span></div><div class="contact-item"><svg class="contact-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span>${d.address}</span></div></div></div><div class="avatar-wrapper"><img src="${d.avatar}" alt="${d.name}" /></div></div>
+        <div class="quick-actions">
+          <div class="quick-action-item" onclick="window.location.href='tel:${d.phone}'"><div class="quick-action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div><span class="quick-action-label">拨打电话</span></div>
+          <div class="quick-action-item" onclick="tryCopyWechat()"><div class="quick-action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.322-1.223a.582.582 0 0 1 .177-.65C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.269-.03-.407-.03zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg></div><span class="quick-action-label">加我微信</span></div>
+          <div class="quick-action-item" onclick="window.location.href='mailto:${d.email}'"><div class="quick-action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div><span class="quick-action-label">邮件</span></div>
+          <div class="quick-action-item" onclick="copyAddress()"><div class="quick-action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div><span class="quick-action-label">地址</span></div>
+        </div>
+        <div class="section"><h2 class="section-title">公司介绍</h2><div class="section-content">${d.introduction}</div></div>
+        <div class="section"><h2 class="section-title">精彩瞬间</h2><div class="gallery-grid">${d.photos.map(p => `<div class="gallery-item" onclick="openGallery('${p.src}')"><img src="${p.src}" alt="${p.title}" /></div>`).join('')}</div></div>
+        <div class="section"><h2 class="section-title">成功案例</h2><div class="cases-grid">${d.cases.map((c,i) => `<div class="case-card" onclick="openCase(${i})"><div class="case-image"><img src="${c.image}" alt="${c.title}" /><span class="case-category">${c.category}</span></div><div class="case-content"><h3 class="case-title">${c.title}</h3><p class="case-desc">${c.description.substring(0,20)}...</p></div></div>`).join('')}</div></div>
+        <div style="height:80px;"></div>
+        <div class="bottom-nav"><div class="bottom-nav-item active"><div class="bottom-nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div><span class="bottom-nav-label">名片</span></div></div>
+      `;
+    }
+
+    function tryCopyWechat() {
+      if (!currentCardData) {
+        alert('数据加载中，请稍候');
+        return;
+      }
+      const w = currentCardData.phone;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(w).then(() => showWechatModal()).catch(() => fallbackCopy(w));
+      } else {
+        fallbackCopy(w);
+      }
+    }
+
+    function copyAddress() {
+      if (!currentCardData) {
+        alert('数据加载中，请稍候');
+        return;
+      }
+      const a = currentCardData.address;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(a).then(() => showAddressModal()).catch(() => fallbackCopy(a, true));
+      } else {
+        fallbackCopy(a, true);
+      }
+    }
+
+    function showAddressModal() {
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.3s;';
+      modal.innerHTML = `<div style="background:#fff;border-radius:16px;padding:32px;max-width:320px;width:90%;text-align:center;animation:slideUp 0.3s;"><div style="width:64px;height:64px;background:#52c41a;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:#fff;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><h3 style="font-size:18px;font-weight:bold;color:#333;margin-bottom:16px;">地址已复制</h3><p style="color:#666;font-size:14px;margin-bottom:20px;">${currentCardData.address}</p><button onclick="this.parentElement.parentElement.remove()" style="width:100%;padding:12px;background:linear-gradient(135deg,#d4af37,#f5d76e);color:#1a1a1a;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">我知道了</button></div>`;
+      modal.onclick = e => e.target === modal && modal.remove();
+      document.body.appendChild(modal);
+    }
+
+    function fallbackCopy(text, isAddress) {
+      const t = document.createElement('textarea');
+      t.value = text; t.style.position = 'fixed'; t.style.left = '-9999px';
+      document.body.appendChild(t); t.select();
+      try { document.execCommand('copy'); isAddress ? showAddressModal() : showWechatModal(); }
+      catch { alert((isAddress ? '地址' : '微信号') + '：' + text + '\n请手动复制'); }
+      document.body.removeChild(t);
+    }
+
+    function showWechatModal() {
+      const modal = document.createElement('div');
+      modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:2000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.3s;';
+      modal.innerHTML = `<div style="background:#fff;border-radius:16px;padding:32px;max-width:320px;width:90%;text-align:center;animation:slideUp 0.3s;"><div style="width:64px;height:64px;background:#52c41a;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;"><svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:#fff;"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div><h3 style="font-size:18px;font-weight:bold;color:#333;margin-bottom:20px;">微信号已复制</h3><div style="text-align:left;background:#f8f8f8;border-radius:8px;padding:16px;margin-bottom:20px;"><p style="color:#666;font-size:14px;line-height:2;margin-bottom:8px;">1、回到微信页"添加朋友"</p><p style="color:#666;font-size:14px;line-height:2;margin-bottom:8px;">2、粘贴已复制的微信号并搜索</p><p style="color:#666;font-size:14px;line-height:2;">3、找到联系人并添加好友</p></div><button onclick="this.parentElement.parentElement.remove()" style="width:100%;padding:12px;background:linear-gradient(135deg,#d4af37,#f5d76e);color:#1a1a1a;border:none;border-radius:8px;font-size:16px;font-weight:600;cursor:pointer;">我知道了</button></div>`;
+      modal.onclick = e => e.target === modal && modal.remove();
+      document.body.appendChild(modal);
+    }
+
+    let currentCaseImageIndex = 0;
+    function openCase(index) {
+      const c = currentCardData.cases[index];
+      document.getElementById('caseDetailImage1').src = c.image;
+      document.getElementById('caseDetailImage2').src = c.image2;
+      document.getElementById('caseDetailImage3').src = c.image3;
+      document.getElementById('caseDetailCategory').textContent = c.category;
+      document.getElementById('caseDetailTitle').textContent = c.title;
+      document.getElementById('caseDetailDesc').textContent = c.description;
+      currentCaseImageIndex = 0; updateCaseImages();
+      document.getElementById('caseModal').classList.add('active');
+    }
+    function closeCase() { document.getElementById('caseModal').classList.remove('active'); }
+    function updateCaseImages() {
+      document.getElementById('caseImagesWrapper').style.transform = `translateX(-${currentCaseImageIndex * 100}%)`;
+      document.querySelectorAll('.case-dot').forEach((dot, i) => dot.classList.toggle('active', i === currentCaseImageIndex));
+    }
+    function prevCaseImage() { currentCaseImageIndex = currentCaseImageIndex === 0 ? 2 : currentCaseImageIndex - 1; updateCaseImages(); }
+    function nextCaseImage() { currentCaseImageIndex = currentCaseImageIndex === 2 ? 0 : currentCaseImageIndex + 1; updateCaseImages(); }
+    function goToCaseImage(index) { currentCaseImageIndex = index; updateCaseImages(); }
+
+    function openGallery(src) { document.getElementById('modalImage').src = src; document.getElementById('galleryModal').classList.add('active'); }
+    function closeGallery() { document.getElementById('galleryModal').classList.remove('active'); }
+
+    document.getElementById('galleryModal').addEventListener('click', e => e.target === e.currentTarget && closeGallery());
+    document.getElementById('caseModal').addEventListener('click', e => e.target === e.currentTarget && closeCase());
+
+    document.addEventListener('DOMContentLoaded', () => renderCard(getCardIdFromURL()));
+  </script>
+</body>
+</html>

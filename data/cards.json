@@ -1,0 +1,94 @@
+[
+  {
+    "id": 0,
+    "name": "陈云峰",
+    "title": "高级产品经理 / 企业顾问",
+    "company": "张家港欧思瑞医疗科技有限公司",
+    "phone": "17706211328",
+    "email": "17706211328@qq.com",
+    "address": "张家港市大新镇东路2号",
+    "avatar": "https://backup.fukit.cn/autoupload/f/2GGLTVvP7no6-FdeJLap7diO_OyvX7mIgxFBfDMDErs/20260701/fto3/940X940/a98e828afc877e3f9ba86b979af3d986.jpg",
+    "introduction": "张家港欧思瑞医疗科技有限公司是一家专注于医疗设备研发、生产和销售的高科技企业。公司致力于为医疗机构提供先进的医疗解决方案，产品涵盖消毒设备、配液系统、医疗信息化等多个领域。",
+    "photos": [
+      "https://backup.fukit.cn/autoupload/f/2GGLTVvP7no6-FdeJLap7diO_OyvX7mIgxFBfDMDErs/20260701/kY4Q/1920X1280/44766619d7b1a07f6a4bea886285f80b.jpg",
+      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20medical%20equipment%20laboratory%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=clean%20hospital%20environment%20medical%20devices%20professional%20photography%20no%20people%20face%20visible&image_size=square"
+    ],
+    "cases": [
+      {
+        "title": "某大型配液公司数字化转型项目",
+        "category": "配液",
+        "image": "https://backup.fukit.cn/autoupload/f/2GGLTVvP7no6-FdeJLap7diO_OyvX7mIgxFBfDMDErs/20260701/eNnt/1920X1280/c726cc1bfa819b268166771349633249.jpg",
+        "image2": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=realistic%20medical%20liquid%20mixing%20equipment%20pharmaceutical%20manufacturing%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image3": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=realistic%20industrial%20control%20panel%20digital%20monitoring%20system%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "description": "为某大型配液公司提供全面的数字化转型解决方案，实现生产流程智能化管理。"
+      },
+      {
+        "title": "智慧医院信息化建设项目",
+        "category": "信息化",
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=modern%20hospital%20information%20system%20digital%20dashboard%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image2": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=medical%20software%20interface%20healthcare%20management%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image3": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=hospital%20data%20center%20server%20room%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "description": "助力医院实现信息化管理，提升医疗服务效率和质量。"
+      },
+      {
+        "title": "消毒设备智能化升级项目",
+        "category": "消毒",
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=medical%20disinfection%20equipment%20UV%20sterilizer%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image2": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=cleanroom%20medical%20facility%20sterile%20environment%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image3": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=automated%20disinfection%20system%20industrial%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "description": "为医疗机构提供智能化消毒设备升级服务，保障医疗环境安全。"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "张三",
+    "title": "销售总监",
+    "company": "张家港欧思瑞医疗科技有限公司",
+    "phone": "13800138000",
+    "email": "zhangsan@osrmedical.com",
+    "address": "张家港市大新镇东路2号",
+    "avatar": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20chinese%20businessman%20portrait%20headshot%20formal%20attire%20clean%20background&image_size=square",
+    "introduction": "拥有丰富的医疗行业销售经验，擅长客户关系管理和市场拓展。",
+    "photos": [
+      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=business%20meeting%20medical%20industry%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=medical%20product%20exhibition%20trade%20show%20professional%20photography%20no%20people%20face%20visible&image_size=square"
+    ],
+    "cases": [
+      {
+        "title": "华东区域市场拓展项目",
+        "category": "销售",
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=business%20presentation%20meeting%20room%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image2": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=market%20analysis%20business%20charts%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image3": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=team%20meeting%20discussion%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "description": "成功开拓华东区域市场，实现销售额增长30%。"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "李四",
+    "title": "技术总监",
+    "company": "张家港欧思瑞医疗科技有限公司",
+    "phone": "13900139000",
+    "email": "lisi@osrmedical.com",
+    "address": "张家港市大新镇东路2号",
+    "avatar": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=professional%20chinese%20engineer%20portrait%20headshot%20technical%20attire%20clean%20background&image_size=square",
+    "introduction": "资深医疗设备研发专家，带领团队完成多项核心技术攻关。",
+    "photos": [
+      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=medical%20research%20laboratory%20equipment%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+      "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=engineering%20design%20CAD%20software%20professional%20photography%20no%20people%20face%20visible&image_size=square"
+    ],
+    "cases": [
+      {
+        "title": "核心消毒技术研发项目",
+        "category": "研发",
+        "image": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=scientific%20research%20laboratory%20medical%20testing%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image2": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=technology%20innovation%20medical%20device%20design%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "image3": "https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=quality%20control%20testing%20medical%20equipment%20professional%20photography%20no%20people%20face%20visible&image_size=square",
+        "description": "成功研发新一代消毒技术，获得多项专利认证。"
+      }
+    ]
+  }
+]
