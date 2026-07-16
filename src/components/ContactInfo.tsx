@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Phone, Mail, MapPin, MessageCircle, Check, X } from 'lucide-react'
+import { Phone, Mail, MapPin, MessageCircle, Check } from 'lucide-react'
 
 interface ContactInfoProps {
   phone: string
