@@ -142,9 +142,9 @@
 
     function getCardIdFromURL() {
       const params = new URLSearchParams(window.location.search);
-      const id = parseInt(params.get('id')) || 0;
+      const id = parseInt(params.get('id')) || 1;
       if (id >= 0 && id < cardData.length) return id;
-      return 0;
+      return 1;
     }
 
     function renderCard(id) {
