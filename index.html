@@ -120,9 +120,25 @@
     </div>
   </div>
 
-  <script src="data/cards.js"></script>
   <script>
+    let cardData = [];
     let currentCardData = null;
+
+    async function loadCardData() {
+      try {
+        const response = await fetch('data/cards.js');
+        const text = await response.text();
+        const script = document.createElement('script');
+        script.textContent = text;
+        document.head.appendChild(script);
+        document.head.removeChild(script);
+        if (window.cardData) {
+          cardData = window.cardData;
+        }
+      } catch (e) {
+        console.error('Failed to load card data:', e);
+      }
+    }
 
     function getCardIdFromURL() {
       const params = new URLSearchParams(window.location.search);
@@ -229,7 +245,10 @@
     document.getElementById('galleryModal').addEventListener('click', e => e.target === e.currentTarget && closeGallery());
     document.getElementById('caseModal').addEventListener('click', e => e.target === e.currentTarget && closeCase());
 
-    document.addEventListener('DOMContentLoaded', () => renderCard(getCardIdFromURL()));
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadCardData();
+      renderCard(getCardIdFromURL());
+    });
   </script>
 </body>
 </html>

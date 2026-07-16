@@ -7,4 +7,9 @@ export default defineConfig({
     host: true,
     port: 8901,
   },
+  build: {
+    rollupOptions: {
+      external: ['/data/cards.js'],
+    },
+  },
 })
