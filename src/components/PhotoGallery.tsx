@@ -19,7 +19,7 @@ export default function PhotoGallery({ photos }: PhotoGalleryProps) {
       <div className="bg-gray-50 rounded-2xl p-6 card-shadow animate-fade-in" style={{ animationDelay: '0.3s' }}>
         <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
           <span className="w-1 h-6 bg-accent mr-3 rounded-full"></span>
-          精彩瞬间
+          认证与资质
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {photos.map((photo) => (

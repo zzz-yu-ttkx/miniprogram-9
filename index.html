@@ -161,7 +161,7 @@
           <div class="quick-action-item" onclick="copyAddress()"><div class="quick-action-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div><span class="quick-action-label">地址</span></div>
         </div>
         <div class="section"><h2 class="section-title">公司介绍</h2><div class="section-content">${d.introduction}</div></div>
-        <div class="section"><h2 class="section-title">精彩瞬间</h2><div class="gallery-grid">${d.photos.map(p => `<div class="gallery-item" onclick="openGallery('${p.src}')"><img src="${p.src}" alt="${p.title}" /></div>`).join('')}</div></div>
+        <div class="section"><h2 class="section-title">认证与资质</h2><div class="gallery-grid">${d.photos.map(p => `<div class="gallery-item" onclick="openGallery('${p.src}')"><img src="${p.src}" alt="${p.title}" /></div>`).join('')}</div></div>
         <div class="section"><h2 class="section-title">成功案例</h2><div class="cases-grid">${d.cases.map((c,i) => `<div class="case-card" onclick="openCase(${i})"><div class="case-image"><img src="${c.image}" alt="${c.title}" /><span class="case-category">${c.category}</span></div><div class="case-content"><h3 class="case-title">${c.title}</h3><p class="case-desc">${c.description.substring(0,20)}...</p></div></div>`).join('')}</div></div>
         <div style="height:80px;"></div>
         <div class="bottom-nav"><div class="bottom-nav-item active"><div class="bottom-nav-icon"><svg class="icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div><span class="bottom-nav-label">名片</span></div></div>
@@ -248,6 +248,10 @@
 
     document.addEventListener('DOMContentLoaded', async () => {
       await loadCardData();
+      if (cardData.length === 0) {
+        document.getElementById('cardContainer').innerHTML = '<div style="padding:40px;text-align:center;color:#999;"><div style="font-size:48px;margin-bottom:16px;">&#128128;</div><p>数据加载失败，请刷新页面重试</p></div>';
+        return;
+      }
       renderCard(getCardIdFromURL());
     });
   </script>
